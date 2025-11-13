@@ -1,41 +1,42 @@
-import { Produto } from "../model/Produto";
-import { ProdutoRepository } from "./ProdutoRepository";
+import { Livro } from "../model/Livro";
+import { ProdutoRepository } from "../repository/ProdutoRepository";
 
-export class ProdutoController implements ProdutoRepository {
-  private listaProdutos: Produto[] = [];
+export class LivroController implements ProdutoRepository {
+  private listaLivros: Array<Livro> = new Array<Livro>();
 
-  procurarPorCodigo(codigo: number): Produto | undefined {
-    return this.listaProdutos.find(p => p.getCodigo() === codigo);
+  cadastrar(livro: Livro): void {
+    this.listaLivros.push(livro);
+    console.log("\nLivro cadastrado com sucesso!");
   }
 
   listarTodos(): void {
-    for (let produto of this.listaProdutos) {
-      produto.visualizar();
-    }
+    this.listaLivros.forEach(l => l.visualizar());
   }
 
-  cadastrar(produto: Produto): void {
-    this.listaProdutos.push(produto);
-    console.log("\nProduto cadastrado com sucesso!");
+  procurarPorCodigo(codigo: number): Livro | undefined {
+    const livro = this.listaLivros.find(l => l.getCodigo() === codigo);
+    if (livro) livro.visualizar();
+    else console.log("\nLivro não encontrado!");
+    return livro;
   }
 
-  atualizar(produto: Produto): void {
-    const index = this.listaProdutos.findIndex(p => p.getCodigo() === produto.getCodigo());
+  atualizar(livro: Livro): void {
+    const index = this.listaLivros.findIndex(l => l.getCodigo() === livro.getCodigo());
     if (index !== -1) {
-      this.listaProdutos[index] = produto;
-      console.log("\nProduto atualizado com sucesso!");
+      this.listaLivros[index] = livro;
+      console.log("\nLivro atualizado com sucesso!");
     } else {
-      console.log("\nProduto nao encontrado.");
+      console.log("\nLivro não encontrado!");
     }
   }
 
   deletar(codigo: number): void {
-    const index = this.listaProdutos.findIndex(p => p.getCodigo() === codigo);
+    const index = this.listaLivros.findIndex(l => l.getCodigo() === codigo);
     if (index !== -1) {
-      this.listaProdutos.splice(index, 1);
-      console.log("\nProduto deletado com sucesso!");
+      this.listaLivros.splice(index, 1);
+      console.log("\nLivro removido com sucesso!");
     } else {
-      console.log("\nProduto nao encontrado.");
+      console.log("\nLivro não encontrado!");
     }
   }
 }

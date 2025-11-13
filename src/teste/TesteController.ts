@@ -12,3 +12,5 @@ controller.cadastrar(livro2);
 controller.listarTodos();
 
 controller.deletar(1);
+
+controller.listarTodos();
