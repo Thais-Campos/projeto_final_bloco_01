@@ -1,5 +1,5 @@
 import { Livro } from "../model/Livro";
-import { ProdutoController } from "../repository/ProdutoController";
+import { ProdutoController } from "../controller/ProdutoController";
 
 const controller = new ProdutoController();
 
